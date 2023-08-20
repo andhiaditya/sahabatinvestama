@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>todos </title>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <nav>
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="portofolio.html">Portofolio</a></li>
+              <li><a href="partner.html">Partner</a></li>
+              <li><a href="contact.html">Contact</a></li>
+              <li><a href="todos.html">Todos</a></li>   
+          </ul>
+      </nav>
+    </div>
+    <div class="content">
+    <div id="myDIV" class="header">
+        <h2>My To Do List</h2>
+        <input type="text" id="myInput" placeholder="andhi">
+        <button onclick="newElement()" class="addBtn">Add</button>
+        <button onclick="read()" >baca</button>
+      </div>
+   
+   <button onclick="hapus()" >hapus</button>
+    
+      <ul id="myUL">
+        <li>tes</li>
+        <li>tis</li>
+        <li>lanjutkan</li>
+        <li>tos</li>
+        <li>ping</li>
+        <li>rek</li>
+      </ul>
+      <h2>Jadwal Harian</h2>
+      <form>
+          <label for="tanggal">Ganjil:</label>
+          <input name="tanggal" type="checkbox" value="ganjil">
+          <label for="tanggal">Genap:</label>
+          <input name="tanggal" type="checkbox" value="genap">
+      </form>
+      <button onclick="ambilInput()">check</button>
+      <div id="hasil"></div>
+  
+      <div class="hasil"></div>
+      <button onclick="update()">update</button>
+      <div class="hasil"></div>    
+
+      <script>
+          let belanja = []
+        // Create a "close" button and append it to each list item
+        
+        
+        // Click on a close button to hide the current list item
+        let close = document.getElementsByClassName("close");
+        
+        for (let i = 0; i < close.length; i++) {
+          close[i].onclick = function() {
+            let div = this.parentElement;
+            div.style.display = "none";
+          }
+        }
+        
+        // Add a "checked" symbol when clicking on a list item
+        let list = document.querySelector('ul');
+        list.addEventListener('click', function(ev) {
+          if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+          }
+        }, false);
+        
+        // Create a new list item when clicking on the "Add" button
+        function newElement() {
+          
+          let inputValue = document.getElementById("myInput").value;
+          
+          if (inputValue === '') {
+            alert("You must write something!");
+          } else {
+            
+            document.getElementById("myUL").innerHTML += `<li>${inputValue}</li>`
+            belanja.push(inputValue)
+            localStorage.setItem("belanja",JSON.stringify(belanja))
+         }
+
+          document.getElementById("myInput").value = "";
+        
+          let span = document.createElement("SPAN");
+          let txt = document.createTextNode("\u00D7");
+          span.className = "close";
+          span.appendChild(txt);
+          
+        
+          for (i = 0; i < close.length; i++) {
+            close[i].onclick = function() {
+              let div = this.parentElement;
+              div.style.display = "none";
+            }
+          }
+        }
+    function read () {
+        
+        let hasilread = JSON.parse(localStorage.getItem("belanja"))
+        document.getElementById("myUL").innerHTML=hasilread
+        belanja = hasilread
+    }  
+    read()
+    function hapus () {
+      localStorage.removeItem("belanja")
+      document.getElementById("myUL").innerHTML=""
+    }
+
+    function update () {
+      const hasils = getElementsByClassName("hasil")
+      for (const hasil of hasils){
+                const header = document.createElement("h2")
+                header.innerText = "hello?"
+
+                hasil.appendChild(header)
+            }
+    }
+    
+        </script>
+<div class="footer">
+  <footer>
+  <ul>
+      <li><img src="gambar/amazon.png" alt=""><p>Amazon</p></a></li>
+      <li><img src="gambar/bh.png" alt=""><p>Berkshire</p></a></li>
+      <li><img src="gambar/apindo.jpeg" alt=""><p>Apindo</p></a></li>
+      <li><img src="gambar/kadin.png" alt=""><p>Kadin Indonesia</p></a></li>
+      <li><img src="gambar/ocbc.jpeg" alt=""><p>OCBC Sek</p></a></li>
+      <li><img src="gambar/logo1.jpg" alt=""><p>Sahabat</p></a></li>
+  </ul>
+  </footer>
+</div>        
+</body>
+</html>
